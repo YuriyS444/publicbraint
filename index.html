@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 BrainT - Three Perspectives on Any Question</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 10px 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .lang-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .brain-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        h1 {
+            font-size: 42px;
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: #4a5568;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-left: 4px solid #f39c12;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .warning-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        .warning-text {
+            font-size: 18px;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .activate-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            padding: 20px 60px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .activate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .features {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 15px;
+        }
+
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 14px;
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        .speed-note {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Диалоговое окно */
+        .brain-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .brain-dialog.active {
+            display: flex;
+        }
+
+        .dialog-content {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 2px solid #00ff88;
+        }
+
+        .dialog-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .dialog-title {
+            font-size: 32px;
+            color: #00ff88;
+            font-weight: 700;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 32px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff4444;
+        }
+
+        .question-input {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            background: #0f0f23;
+            color: white;
+            margin-bottom: 20px;
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .question-input:focus {
+            outline: none;
+            border-color: #00ff88;
+        }
+
+        .ask-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #0f0f23;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .ask-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        .ask-btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            font-size: 48px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #888;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+
+        .answers {
+            display: none;
+            margin-top: 30px;
+        }
+
+        .answers.active {
+            display: block;
+        }
+
+        .answer-block {
+            background: #0f0f23;
+            border-left: 4px solid;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .answer-block.practical { border-color: #ff6b6b; }
+        .answer-block.deep { border-color: #4ecdc4; }
+        .answer-block.genius { border-color: #ffe66d; }
+
+        .answer-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .answer-title.practical { color: #ff6b6b; }
+        .answer-title.deep { color: #4ecdc4; }
+        .answer-title.genius { color: #ffe66d; }
+
+        .answer-text {
+            color: #ccc;
+            line-height: 1.8;
+            font-size: 16px;
+            white-space: pre-wrap;
+        }
+
+        .error {
+            background: #ff4444;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            h1 { font-size: 32px; }
+            .features { grid-template-columns: 1fr; }
+            .dialog-content { padding: 20px; }
+            .lang-switcher { top: 10px; right: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Language Switcher -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="switchLang('en')" id="langEN">🇬🇧</button>
+        <button class="lang-btn" onclick="switchLang('ru')" id="langRU">🇷🇺</button>
+    </div>
+
+    <div class="container">
+        <div class="brain-icon">🧠</div>
+        <h1 id="title">BrainT</h1>
+        <p class="subtitle" id="subtitle">
+            Get <strong>3 different perspectives</strong> on any question instead of one
+        </p>
+
+        <div class="warning">
+            <div style="display: flex; align-items: center;">
+                <span class="warning-icon">⚠️</span>
+                <span class="warning-text" id="warningText">WARNING: A new brain will grow after clicking</span>
+            </div>
+        </div>
+
+        <button class="activate-btn" onclick="activateBrain()" id="activateBtn">
+            Activate BrainT
+        </button>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📌</div>
+                <div class="feature-text" id="feature1">Practical<br>Answer</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🌌</div>
+                <div class="feature-text" id="feature2">Deep<br>Insight</div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">✨</div>
+                <div class="feature-text" id="feature3">Genius<br>Idea</div>
+            </div>
+        </div>
+
+        <div class="speed-note" id="speedNote">
+            ⏱️ First request: ~50 seconds (server wakes up)<br>
+            ⚡ Next requests: ~5 seconds
+        </div>
+    </div>
+
+    <!-- Dialog -->
+    <div class="brain-dialog" id="brainDialog">
+        <div class="dialog-content">
+            <div class="dialog-header">
+                <div class="dialog-title">🧠 BrainT</div>
+                <button class="close-btn" onclick="closeBrain()">×</button>
+            </div>
+
+            <textarea 
+                class="question-input" 
+                id="questionInput" 
+                placeholder="Ask any question..."
+            ></textarea>
+
+            <button class="ask-btn" id="askBtn" onclick="askBrain()">
+                🧠 <span id="askBtnText">Get 3 Perspectives</span>
+            </button>
+
+            <div class="loading" id="loading">
+                <div class="spinner">🧠</div>
+                <div class="loading-text" id="loadingText">BrainT is thinking... May take 5-50 seconds</div>
+            </div>
+
+            <div class="error" id="error"></div>
+
+            <div class="answers" id="answers">
+                <div class="answer-block practical">
+                    <div class="answer-title practical" id="practicalTitle">📌 PRACTICAL ANSWER</div>
+                    <div class="answer-text" id="practicalAnswer"></div>
+                </div>
+
+                <div class="answer-block deep">
+                    <div class="answer-title deep" id="deepTitle">🌌 DEEP INSIGHT</div>
+                    <div class="answer-text" id="deepAnswer"></div>
+                </div>
+
+                <div class="answer-block genius">
+                    <div class="answer-title genius" id="geniusTitle">✨ GENIUS IDEA</div>
+                    <div class="answer-text" id="geniusAnswer"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://braint-1.onrender.com/api/genius';
+        
+        // Generate or get user ID
+        function getUserId() {
+            let userId = localStorage.getItem('braint_user_id');
+            if (!userId) {
+                userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                localStorage.setItem('braint_user_id', userId);
+                console.log('🆔 New BrainT user created:', userId);
+            } else {
+                console.log('🆔 Returning BrainT user:', userId);
+            }
+            return userId;
+        }
+        
+        // Initialize user on page load
+        const BRAINT_USER_ID = getUserId();
+        
+        // Translations
+        const translations = {
+            en: {
+                title: 'BrainT',
+                subtitle: 'Get <strong>3 different perspectives</strong> on any question instead of one',
+                warningText: 'WARNING: A new brain will grow after clicking',
+                activateBtn: 'Activate BrainT',
+                feature1: 'Practical<br>Answer',
+                feature2: 'Deep<br>Insight',
+                feature3: 'Genius<br>Idea',
+                speedNote: '⏱️ First request: ~50 seconds (server wakes up)<br>⚡ Next requests: ~5 seconds',
+                placeholder: 'Ask any question...\n\nFor example:\n• How to increase sales?\n• How to find my purpose?\n• How to make difficult decisions?',
+                askBtnText: 'Get 3 Perspectives',
+                loadingText: 'BrainT is thinking... May take 5-50 seconds',
+                practicalTitle: '📌 PRACTICAL ANSWER',
+                deepTitle: '🌌 DEEP INSIGHT',
+                geniusTitle: '✨ GENIUS IDEA',
+                errorEmpty: 'Please enter a question',
+                errorNetwork: 'An error occurred. Please try again in a few seconds. (First request may take up to 50 seconds — cold start)'
+            },
+            ru: {
+                title: 'BrainT',
+                subtitle: 'Получайте <strong>3 разных взгляда</strong> на любой вопрос вместо одного',
+                warningText: 'ВНИМАНИЕ: После нажатия у вас вырастет новый мозг',
+                activateBtn: 'Активировать BrainT',
+                feature1: 'Практический<br>ответ',
+                feature2: 'Глубинный<br>взгляд',
+                feature3: 'Гениальная<br>идея',
+                speedNote: '⏱️ Первый запрос: ~50 секунд (сервер просыпается)<br>⚡ Следующие: ~5 секунд',
+                placeholder: 'Задайте любой вопрос...\n\nНапример:\n• Как увеличить продажи?\n• Как найти своё призвание?\n• Как принимать сложные решения?',
+                askBtnText: 'Получить 3 взгляда',
+                loadingText: 'BrainT думает... Это может занять 5-50 секунд',
+                practicalTitle: '📌 ПРАКТИЧЕСКИЙ ОТВЕТ',
+                deepTitle: '🌌 ГЛУБИННЫЙ ВЗГЛЯД',
+                geniusTitle: '✨ ГЕНИАЛЬНАЯ ИДЕЯ',
+                errorEmpty: 'Пожалуйста, введите вопрос',
+                errorNetwork: 'Произошла ошибка. Попробуйте ещё раз через несколько секунд. (Первый запрос может занять до 50 секунд — cold start)'
+            }
+        };
+
+        let currentLang = 'en';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            document.getElementById('langEN').classList.toggle('active', lang === 'en');
+            document.getElementById('langRU').classList.toggle('active', lang === 'ru');
+            
+            const t = translations[lang];
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('subtitle').innerHTML = t.subtitle;
+            document.getElementById('warningText').textContent = t.warningText;
+            document.getElementById('activateBtn').textContent = t.activateBtn;
+            document.getElementById('feature1').innerHTML = t.feature1;
+            document.getElementById('feature2').innerHTML = t.feature2;
+            document.getElementById('feature3').innerHTML = t.feature3;
+            document.getElementById('speedNote').innerHTML = t.speedNote;
+            document.getElementById('questionInput').placeholder = t.placeholder;
+            document.getElementById('askBtnText').textContent = t.askBtnText;
+            document.getElementById('loadingText').textContent = t.loadingText;
+            document.getElementById('practicalTitle').textContent = t.practicalTitle;
+            document.getElementById('deepTitle').textContent = t.deepTitle;
+            document.getElementById('geniusTitle').textContent = t.geniusTitle;
+        }
+
+        function activateBrain() {
+            document.getElementById('brainDialog').classList.add('active');
+            document.getElementById('questionInput').focus();
+        }
+
+        function closeBrain() {
+            document.getElementById('brainDialog').classList.remove('active');
+            resetDialog();
+        }
+
+        function resetDialog() {
+            document.getElementById('questionInput').value = '';
+            document.getElementById('loading').classList.remove('active');
+            document.getElementById('answers').classList.remove('active');
+            document.getElementById('error').classList.remove('active');
+            document.getElementById('askBtn').disabled = false;
+        }
+
+        async function askBrain() {
+            const question = document.getElementById('questionInput').value.trim();
+            const t = translations[currentLang];
+            
+            if (!question) {
+                showError(t.errorEmpty);
+                return;
+            }
+
+            document.getElementById('loading').classList.add('active');
+            document.getElementById('answers').classList.remove('active');
+            document.getElementById('error').classList.remove('active');
+            document.getElementById('askBtn').disabled = true;
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        question,
+                        user_id: BRAINT_USER_ID  // Send user ID with request
+                    })
+                });
+
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const data = await response.json();
+
+                document.getElementById('practicalAnswer').textContent = data.practical.text;
+                document.getElementById('deepAnswer').textContent = data.deep.text;
+                document.getElementById('geniusAnswer').textContent = data.genius.text;
+
+                document.getElementById('loading').classList.remove('active');
+                document.getElementById('answers').classList.add('active');
+
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('loading').classList.remove('active');
+                showError(t.errorNetwork);
+            } finally {
+                document.getElementById('askBtn').disabled = false;
+            }
+        }
+
+        function showError(message) {
+            const errorEl = document.getElementById('error');
+            errorEl.textContent = message;
+            errorEl.classList.add('active');
+            setTimeout(() => errorEl.classList.remove('active'), 5000);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeBrain();
+        });
+
+        document.getElementById('brainDialog').addEventListener('click', (e) => {
+            if (e.target.id === 'brainDialog') closeBrain();
+        });
+    </script>
+</body>
+</html>
