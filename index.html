@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧠 BrainT - Three Perspectives on Any Question</title>
+    <!-- Mermaid для диаграмм -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -25,10 +23,10 @@
             position: fixed;
             top: 20px;
             right: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             border-radius: 50px;
             padding: 10px 20px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
             display: flex;
             gap: 10px;
             z-index: 100;
@@ -48,18 +46,16 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .lang-btn:hover {
-            transform: scale(1.1);
-        }
+        .lang-btn:hover { transform: scale(1.1); }
 
         .container {
             max-width: 600px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255,255,255,0.95);
             border-radius: 20px;
             padding: 60px 40px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         .brain-icon {
@@ -73,19 +69,8 @@
             50% { transform: scale(1.1); }
         }
 
-        h1 {
-            font-size: 42px;
-            color: #2d3748;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .subtitle {
-            font-size: 20px;
-            color: #4a5568;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
+        h1 { font-size: 42px; color: #2d3748; margin-bottom: 20px; font-weight: 700; }
+        .subtitle { font-size: 20px; color: #4a5568; margin-bottom: 40px; line-height: 1.6; }
 
         .warning {
             background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
@@ -96,16 +81,7 @@
             text-align: left;
         }
 
-        .warning-icon {
-            font-size: 24px;
-            margin-right: 10px;
-        }
-
-        .warning-text {
-            font-size: 18px;
-            color: #2d3748;
-            font-weight: 600;
-        }
+        .warning-text { font-size: 18px; color: #2d3748; font-weight: 600; }
 
         .activate-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -116,7 +92,7 @@
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 10px 30px rgba(102,126,234,0.4);
             transition: all 0.3s ease;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -124,7 +100,7 @@
 
         .activate-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 15px 40px rgba(102,126,234,0.6);
         }
 
         .features {
@@ -134,48 +110,33 @@
             gap: 20px;
         }
 
-        .feature {
-            padding: 15px;
-        }
-
-        .feature-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .feature-text {
-            font-size: 14px;
-            color: #4a5568;
-            font-weight: 600;
-        }
+        .feature { padding: 15px; }
+        .feature-icon { font-size: 32px; margin-bottom: 10px; }
+        .feature-text { font-size: 14px; color: #4a5568; font-weight: 600; }
 
         .speed-note {
             margin-top: 30px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255,255,255,0.7);
             border-radius: 10px;
             font-size: 14px;
             color: #666;
         }
 
-        /* Диалоговое окно */
+        /* Диалог */
         .brain-dialog {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
             z-index: 1000;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
 
-        .brain-dialog.active {
-            display: flex;
-        }
+        .brain-dialog.active { display: flex; }
 
         .dialog-content {
             background: #1a1a2e;
@@ -185,7 +146,7 @@
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             border: 2px solid #00ff88;
         }
 
@@ -196,11 +157,22 @@
             margin-bottom: 30px;
         }
 
-        .dialog-title {
-            font-size: 32px;
-            color: #00ff88;
-            font-weight: 700;
+        .dialog-title { font-size: 32px; color: #00ff88; font-weight: 700; }
+
+        .header-actions { display: flex; gap: 10px; align-items: center; }
+
+        .reset-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid #444;
+            color: #888;
+            font-size: 13px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
         }
+
+        .reset-btn:hover { background: rgba(255,100,100,0.2); color: #ff8888; border-color: #ff8888; }
 
         .close-btn {
             background: none;
@@ -211,8 +183,47 @@
             transition: color 0.3s;
         }
 
-        .close-btn:hover {
-            color: #ff4444;
+        .close-btn:hover { color: #ff4444; }
+
+        /* История диалога */
+        .dialog-history {
+            display: none;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .dialog-history.has-messages { display: block; }
+
+        .history-msg {
+            padding: 8px 12px;
+            margin-bottom: 6px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .history-msg.user {
+            background: rgba(0,255,136,0.1);
+            color: #00ff88;
+            border-left: 3px solid #00ff88;
+        }
+
+        .history-msg.assistant {
+            background: rgba(255,255,255,0.05);
+            color: #999;
+            border-left: 3px solid #444;
+        }
+
+        .history-label {
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .question-input {
@@ -228,10 +239,7 @@
             min-height: 100px;
         }
 
-        .question-input:focus {
-            outline: none;
-            border-color: #00ff88;
-        }
+        .question-input:focus { outline: none; border-color: #00ff88; }
 
         .ask-btn {
             width: 100%;
@@ -248,7 +256,7 @@
 
         .ask-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.3);
         }
 
         .ask-btn:disabled {
@@ -258,40 +266,20 @@
             transform: none;
         }
 
-        .loading {
-            text-align: center;
-            padding: 40px;
-            display: none;
-        }
+        .loading { text-align: center; padding: 40px; display: none; }
+        .loading.active { display: block; }
 
-        .loading.active {
-            display: block;
-        }
-
-        .spinner {
-            font-size: 48px;
-            animation: spin 1s linear infinite;
-        }
+        .spinner { font-size: 48px; animation: spin 1s linear infinite; }
 
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        .loading-text {
-            color: #888;
-            margin-top: 20px;
-            font-size: 16px;
-        }
+        .loading-text { color: #888; margin-top: 20px; font-size: 16px; }
 
-        .answers {
-            display: none;
-            margin-top: 30px;
-        }
-
-        .answers.active {
-            display: block;
-        }
+        .answers { display: none; margin-top: 30px; }
+        .answers.active { display: block; }
 
         .answer-block {
             background: #0f0f23;
@@ -325,6 +313,26 @@
             white-space: pre-wrap;
         }
 
+        /* Mermaid диаграммы */
+        .mermaid-wrapper {
+            background: #0a0a1a;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid { background: transparent !important; }
+
+        /* SVG */
+        .svg-wrapper {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
         .error {
             background: #ff4444;
             color: white;
@@ -334,8 +342,228 @@
             display: none;
         }
 
-        .error.active {
-            display: block;
+        .error.active { display: block; }
+
+        /* Пользовательское соглашение */
+        .agreement-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .agreement-overlay.active { display: flex; }
+
+        .agreement-box {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 560px;
+            width: 100%;
+            border: 2px solid #444;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+
+        .agreement-logo {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .agreement-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .agreement-list {
+            list-style: none;
+            margin-bottom: 28px;
+        }
+
+        .agreement-list li {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.6;
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            gap: 10px;
+        }
+
+        .agreement-list li:last-child { border-bottom: none; }
+
+        .agreement-list li span.icon { font-size: 18px; flex-shrink: 0; }
+
+        .agreement-btns {
+            display: flex;
+            gap: 12px;
+        }
+
+        .agree-btn {
+            flex: 1;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .agree-btn.accept {
+            background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+            color: #0f0f23;
+        }
+
+        .agree-btn.accept:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,255,136,0.3);
+        }
+
+        .agree-btn.decline {
+            background: rgba(255,255,255,0.05);
+            color: #666;
+            border: 1px solid #333;
+        }
+
+        .agree-btn.decline:hover { color: #ff4444; border-color: #ff4444; }
+
+        .agreement-footer {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 12px;
+            color: #444;
+        }
+
+        /* Убираем жёлтый баннер — теперь не нужен */
+        .warning { display: none !important; }
+
+        /* Кнопки сохранения */
+        .save-toolbar {
+            display: none;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .save-toolbar.active { display: flex; }
+
+        .save-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 16px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.05);
+            color: #aaa;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .save-btn:hover { background: rgba(0,255,136,0.1); color: #00ff88; border-color: #00ff88; }
+        .save-btn.share:hover { background: rgba(100,150,255,0.1); color: #7aa3ff; border-color: #7aa3ff; }
+        .save-btn.pdf:hover { background: rgba(255,100,100,0.1); color: #ff8888; border-color: #ff8888; }
+
+        .copy-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #00ff88;
+            color: #0f0f23;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .copy-toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Панель ввода с голосом и файлами */
+        .input-toolbar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .toolbar-btn {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid #333;
+            color: #aaa;
+            font-size: 18px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: inherit;
+        }
+
+        .toolbar-btn:hover { background: rgba(0,255,136,0.1); color: #00ff88; border-color: #00ff88; }
+
+        .toolbar-btn.recording {
+            background: rgba(255,50,50,0.2);
+            color: #ff4444;
+            border-color: #ff4444;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .toolbar-hint { font-size: 12px; color: #444; margin-left: auto; }
+
+        .file-input { display: none; }
+
+        .file-preview {
+            display: none;
+            background: rgba(0,255,136,0.05);
+            border: 1px solid #1a3a2a;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            color: #00cc66;
+            font-size: 14px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .file-preview.has-file { display: flex; }
+
+        .file-remove {
+            margin-left: auto;
+            cursor: pointer;
+            color: #ff4444;
+            font-size: 18px;
+            background: none;
+            border: none;
         }
 
         @media (max-width: 768px) {
@@ -348,7 +576,6 @@
     </style>
 </head>
 <body>
-    <!-- Language Switcher -->
     <div class="lang-switcher">
         <button class="lang-btn active" onclick="switchLang('en')" id="langEN">🇬🇧</button>
         <button class="lang-btn" onclick="switchLang('ru')" id="langRU">🇷🇺</button>
@@ -363,7 +590,7 @@
 
         <div class="warning">
             <div style="display: flex; align-items: center;">
-                <span class="warning-icon">⚠️</span>
+                <span style="font-size:24px; margin-right:10px;">⚠️</span>
                 <span class="warning-text" id="warningText">WARNING: A new brain will grow after clicking</span>
             </div>
         </div>
@@ -398,12 +625,41 @@
         <div class="dialog-content">
             <div class="dialog-header">
                 <div class="dialog-title">🧠 BrainT</div>
-                <button class="close-btn" onclick="closeBrain()">×</button>
+                <div class="header-actions">
+                    <button class="reset-btn" onclick="resetHistory()" id="resetBtn" style="display:none">
+                        🗑️ <span id="resetBtnText">New dialog</span>
+                    </button>
+                    <button class="close-btn" onclick="closeBrain()">×</button>
+                </div>
             </div>
 
-            <textarea 
-                class="question-input" 
-                id="questionInput" 
+            <!-- История диалога -->
+            <div class="dialog-history" id="dialogHistory"></div>
+
+            <!-- Панель: голос + файл -->
+            <div class="input-toolbar">
+                <button class="toolbar-btn" id="voiceBtn" onclick="toggleVoice()" title="Voice input">
+                    🎤 <span id="voiceBtnText">Voice</span>
+                </button>
+                <button class="toolbar-btn" onclick="document.getElementById('fileInput').click()" title="Attach file">
+                    📎 <span id="fileBtnText">File</span>
+                </button>
+                <input type="file" id="fileInput" class="file-input"
+                    accept=".txt,.md,.pdf,.docx,.csv"
+                    onchange="handleFileSelect(event)">
+                <span class="toolbar-hint" id="toolbarHint">Ctrl+Enter to send</span>
+            </div>
+
+            <!-- Превью файла -->
+            <div class="file-preview" id="filePreview">
+                <span>📄</span>
+                <span id="fileName">file.txt</span>
+                <button class="file-remove" onclick="removeFile()">×</button>
+            </div>
+
+            <textarea
+                class="question-input"
+                id="questionInput"
                 placeholder="Ask any question..."
             ></textarea>
 
@@ -423,40 +679,238 @@
                     <div class="answer-title practical" id="practicalTitle">📌 PRACTICAL ANSWER</div>
                     <div class="answer-text" id="practicalAnswer"></div>
                 </div>
-
                 <div class="answer-block deep">
                     <div class="answer-title deep" id="deepTitle">🌌 DEEP INSIGHT</div>
                     <div class="answer-text" id="deepAnswer"></div>
                 </div>
-
                 <div class="answer-block genius">
                     <div class="answer-title genius" id="geniusTitle">✨ GENIUS IDEA</div>
                     <div class="answer-text" id="geniusAnswer"></div>
                 </div>
             </div>
+
+            <!-- Кнопка сохранения TXT -->
+            <div class="save-toolbar" id="saveToolbar">
+                <button class="save-btn" onclick="saveTXT()">
+                    💾 <span id="saveTxtLabel">Save TXT</span>
+                </button>
+                <button class="save-btn share" onclick="copyShareLink()">
+                    🔗 <span id="shareLinkLabel">Copy link</span>
+                </button>
+                <button class="save-btn pdf" onclick="savePDF()">
+                    📄 <span id="savePdfLabel">Save PDF</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="copy-toast" id="copyToast"></div>
+
+    <!-- Пользовательское соглашение -->
+    <div class="agreement-overlay" id="agreementOverlay">
+        <div class="agreement-box">
+            <div class="agreement-logo">🧠</div>
+            <div class="agreement-title" id="agreeTitle">Before you start</div>
+            <ul class="agreement-list" id="agreeList">
+                <li><span class="icon">💡</span><span>BrainT gives perspectives and ideas — not professional medical, legal or financial advice.</span></li>
+                <li><span class="icon">🔒</span><span>Do not enter personal data: passport, bank details, passwords.</span></li>
+                <li><span class="icon">🤖</span><span>Responses are generated by AI (DeepSeek). They may be inaccurate — always verify important decisions.</span></li>
+                <li><span class="icon">🌐</span><span>Your questions are processed by third-party API (DeepSeek). Do not share confidential information.</span></li>
+                <li><span class="icon">🔞</span><span>Service intended for users 16 years and older.</span></li>
+            </ul>
+            <div class="agreement-btns">
+                <button class="agree-btn decline" onclick="declineAgreement()" id="agreeDeclineBtn">Decline</button>
+                <button class="agree-btn accept" onclick="acceptAgreement()" id="agreeAcceptBtn">✓ I Agree</button>
+            </div>
+            <div class="agreement-footer" id="agreeFooter">By clicking "I Agree" you accept the terms above</div>
         </div>
     </div>
 
     <script>
         const API_URL = 'https://braint-1.onrender.com/api/genius';
-        
-        // Generate or get user ID
+
+        // Инициализация Mermaid
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: { background: '#0a0a1a', primaryColor: '#00ff88' }
+        });
+
+        // ── USER ID ───────────────────────────────────────────
         function getUserId() {
             let userId = localStorage.getItem('braint_user_id');
             if (!userId) {
                 userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
                 localStorage.setItem('braint_user_id', userId);
-                console.log('🆔 New BrainT user created:', userId);
-            } else {
-                console.log('🆔 Returning BrainT user:', userId);
             }
             return userId;
         }
-        
-        // Initialize user on page load
         const BRAINT_USER_ID = getUserId();
-        
-        // Translations
+
+        // ── ИСТОРИЯ ДИАЛОГА (в памяти браузера) ──────────────
+        let dialogMessages = []; // [{role, content, question}]
+
+        function addToHistory(question, answers) {
+            dialogMessages.push({ role: 'user', content: question });
+            dialogMessages.push({ role: 'assistant', content: answers.practical.text });
+            // Держим последние 10
+            if (dialogMessages.length > 10) dialogMessages = dialogMessages.slice(-10);
+            renderHistory();
+        }
+
+        function renderHistory() {
+            const el = document.getElementById('dialogHistory');
+            const resetBtn = document.getElementById('resetBtn');
+
+            if (dialogMessages.length === 0) {
+                el.classList.remove('has-messages');
+                resetBtn.style.display = 'none';
+                el.innerHTML = '';
+                return;
+            }
+
+            el.classList.add('has-messages');
+            resetBtn.style.display = 'inline-block';
+
+            el.innerHTML = dialogMessages.map(m => `
+                <div class="history-msg ${m.role}">
+                    <div class="history-label">${m.role === 'user' ? '👤 You' : '🧠 BrainT'}</div>
+                    ${m.content.substring(0, 120)}${m.content.length > 120 ? '...' : ''}
+                </div>
+            `).join('');
+
+            el.scrollTop = el.scrollHeight;
+        }
+
+        async function resetHistory() {
+            dialogMessages = [];
+            renderHistory();
+            document.getElementById('answers').classList.remove('active');
+            document.getElementById('questionInput').value = '';
+            // Сообщаем серверу
+            try {
+                await fetch(`https://braint-1.onrender.com/api/reset?user_id=${BRAINT_USER_ID}`, { method: 'POST' });
+            } catch(e) {}
+        }
+
+        // ── РЕНДЕРИНГ ОТВЕТА (Mermaid + SVG + текст) ─────────
+        async function renderAnswer(elementId, text) {
+            const el = document.getElementById(elementId);
+
+            // Ищем блоки ```mermaid
+            const mermaidRegex = /```mermaid\n([\s\S]*?)```/g;
+            // Ищем блоки ```svg
+            const svgRegex = /```svg\n([\s\S]*?)```/g;
+
+            let html = text;
+            let hasMermaid = false;
+            let mermaidBlocks = [];
+
+            // Заменяем mermaid блоки на placeholder
+            html = html.replace(mermaidRegex, (match, code) => {
+                const id = 'mermaid-' + Math.random().toString(36).substr(2, 9);
+                mermaidBlocks.push({ id, code: code.trim() });
+                hasMermaid = true;
+                return `<div class="mermaid-wrapper"><div class="mermaid" id="${id}">${code.trim()}</div></div>`;
+            });
+
+            // Заменяем svg блоки
+            html = html.replace(svgRegex, (match, svgCode) => {
+                return `<div class="svg-wrapper">${svgCode.trim()}</div>`;
+            });
+
+            // Остальной текст — обычный pre-wrap
+            // Разбиваем на части: HTML и текст
+            const hasSpecial = hasMermaid || svgRegex.test(text);
+
+            if (hasSpecial) {
+                // Есть диаграммы — рендерим как HTML
+                el.innerHTML = html.replace(/\n/g, '<br>');
+                // Запускаем Mermaid на новых блоках
+                if (hasMermaid) {
+                    try {
+                        await mermaid.run({ nodes: document.querySelectorAll('.mermaid:not([data-processed])') });
+                    } catch(e) {
+                        console.warn('Mermaid render error:', e);
+                    }
+                }
+            } else {
+                // Обычный текст
+                el.style.whiteSpace = 'pre-wrap';
+                el.textContent = text;
+            }
+        }
+
+        // ── ПОЛЬЗОВАТЕЛЬСКОЕ СОГЛАШЕНИЕ ───────────────────────
+        const agreementTexts = {
+            en: {
+                title: 'Before you start',
+                items: [
+                    ['💡', 'BrainT gives perspectives and ideas — not professional medical, legal or financial advice.'],
+                    ['🔒', 'Do not enter personal data: passport, bank details, passwords.'],
+                    ['🤖', 'Responses are generated by AI (DeepSeek). They may be inaccurate — always verify important decisions.'],
+                    ['🌐', 'Your questions are processed by third-party API (DeepSeek). Do not share confidential information.'],
+                    ['🔞', 'Service intended for users 16 years and older.'],
+                ],
+                decline: 'Decline',
+                accept: '✓ I Agree',
+                footer: 'By clicking "I Agree" you accept the terms above',
+            },
+            ru: {
+                title: 'Перед началом',
+                items: [
+                    ['💡', 'BrainT даёт идеи и перспективы — не является профессиональной медицинской, юридической или финансовой консультацией.'],
+                    ['🔒', 'Не вводите личные данные: паспорт, банковские реквизиты, пароли.'],
+                    ['🤖', 'Ответы генерируются AI (DeepSeek). Они могут быть неточными — всегда проверяйте важные решения.'],
+                    ['🌐', 'Ваши вопросы обрабатываются сторонним API (DeepSeek). Не передавайте конфиденциальную информацию.'],
+                    ['🔞', 'Сервис предназначен для пользователей от 16 лет.'],
+                ],
+                decline: 'Отказаться',
+                accept: '✓ Принимаю',
+                footer: 'Нажимая "Принимаю" вы соглашаетесь с условиями выше',
+            }
+        };
+
+        function updateAgreementLang(lang) {
+            const t = agreementTexts[lang];
+            document.getElementById('agreeTitle').textContent = t.title;
+            document.getElementById('agreeDeclineBtn').textContent = t.decline;
+            document.getElementById('agreeAcceptBtn').textContent = t.accept;
+            document.getElementById('agreeFooter').textContent = t.footer;
+            const list = document.getElementById('agreeList');
+            list.innerHTML = t.items.map(([icon, text]) =>
+                `<li><span class="icon">${icon}</span><span>${text}</span></li>`
+            ).join('');
+        }
+
+        function acceptAgreement() {
+            localStorage.setItem('braint_agreed', '1');
+            document.getElementById('agreementOverlay').classList.remove('active');
+        }
+
+        function declineAgreement() {
+            // Остаёмся на странице но не даём доступ
+            document.getElementById('agreementOverlay').classList.remove('active');
+            document.getElementById('activateBtn').disabled = true;
+            document.getElementById('activateBtn').style.opacity = '0.4';
+            document.getElementById('activateBtn').style.cursor = 'not-allowed';
+            document.getElementById('activateBtn').title =
+                currentLang === 'ru' ? 'Необходимо принять соглашение' : 'Agreement required';
+        }
+
+        function checkAgreement() {
+            if (!localStorage.getItem('braint_agreed')) {
+                document.getElementById('agreementOverlay').classList.add('active');
+                updateAgreementLang(currentLang);
+            }
+        }
+
+        // Запускаем проверку при загрузке
+        window.addEventListener('load', checkAgreement);
+
+        // ── ПЕРЕВОДЫ ──────────────────────────────────────────
         const translations = {
             en: {
                 title: 'BrainT',
@@ -467,14 +921,18 @@
                 feature2: 'Deep<br>Insight',
                 feature3: 'Genius<br>Idea',
                 speedNote: '⏱️ First request: ~50 seconds (server wakes up)<br>⚡ Next requests: ~5 seconds',
-                placeholder: 'Ask any question...\n\nFor example:\n• How to increase sales?\n• How to find my purpose?\n• How to make difficult decisions?',
+                placeholder: 'Ask any question...\n\nExamples:\n• How to increase sales?\n• How to find my purpose?\n• Draw me a process diagram',
                 askBtnText: 'Get 3 Perspectives',
                 loadingText: 'BrainT is thinking... May take 5-50 seconds',
                 practicalTitle: '📌 PRACTICAL ANSWER',
                 deepTitle: '🌌 DEEP INSIGHT',
                 geniusTitle: '✨ GENIUS IDEA',
-                errorEmpty: 'Please enter a question',
-                errorNetwork: 'An error occurred. Please try again in a few seconds. (First request may take up to 50 seconds — cold start)'
+                resetBtnText: 'New dialog',
+                voiceBtn: 'Voice',
+                stopBtn: 'Stop',
+                fileBtn: 'File',
+                toolbarHint: 'Ctrl+Enter to send',
+                errorNetwork: 'An error occurred. Please try again. (First request may take up to 50 seconds)'
             },
             ru: {
                 title: 'BrainT',
@@ -485,14 +943,18 @@
                 feature2: 'Глубинный<br>взгляд',
                 feature3: 'Гениальная<br>идея',
                 speedNote: '⏱️ Первый запрос: ~50 секунд (сервер просыпается)<br>⚡ Следующие: ~5 секунд',
-                placeholder: 'Задайте любой вопрос...\n\nНапример:\n• Как увеличить продажи?\n• Как найти своё призвание?\n• Как принимать сложные решения?',
+                placeholder: 'Задайте любой вопрос...\n\nНапример:\n• Как увеличить продажи?\n• Как найти своё призвание?\n• Нарисуй схему процесса',
                 askBtnText: 'Получить 3 взгляда',
                 loadingText: 'BrainT думает... Это может занять 5-50 секунд',
                 practicalTitle: '📌 ПРАКТИЧЕСКИЙ ОТВЕТ',
                 deepTitle: '🌌 ГЛУБИННЫЙ ВЗГЛЯД',
                 geniusTitle: '✨ ГЕНИАЛЬНАЯ ИДЕЯ',
-                errorEmpty: 'Пожалуйста, введите вопрос',
-                errorNetwork: 'Произошла ошибка. Попробуйте ещё раз через несколько секунд. (Первый запрос может занять до 50 секунд — cold start)'
+                resetBtnText: 'Новый диалог',
+                voiceBtn: 'Голос',
+                stopBtn: 'Стоп',
+                fileBtn: 'Файл',
+                toolbarHint: 'Ctrl+Enter для отправки',
+                errorNetwork: 'Произошла ошибка. Попробуйте ещё раз. (Первый запрос до 50 секунд)'
             }
         };
 
@@ -502,7 +964,6 @@
             currentLang = lang;
             document.getElementById('langEN').classList.toggle('active', lang === 'en');
             document.getElementById('langRU').classList.toggle('active', lang === 'ru');
-            
             const t = translations[lang];
             document.getElementById('title').textContent = t.title;
             document.getElementById('subtitle').innerHTML = t.subtitle;
@@ -518,6 +979,9 @@
             document.getElementById('practicalTitle').textContent = t.practicalTitle;
             document.getElementById('deepTitle').textContent = t.deepTitle;
             document.getElementById('geniusTitle').textContent = t.geniusTitle;
+            document.getElementById('resetBtnText').textContent = t.resetBtnText;
+            // Обновляем соглашение если оно открыто
+            updateAgreementLang(lang);
         }
 
         function activateBrain() {
@@ -527,51 +991,55 @@
 
         function closeBrain() {
             document.getElementById('brainDialog').classList.remove('active');
-            resetDialog();
-        }
-
-        function resetDialog() {
-            document.getElementById('questionInput').value = '';
-            document.getElementById('loading').classList.remove('active');
-            document.getElementById('answers').classList.remove('active');
-            document.getElementById('error').classList.remove('active');
-            document.getElementById('askBtn').disabled = false;
         }
 
         async function askBrain() {
             const question = document.getElementById('questionInput').value.trim();
             const t = translations[currentLang];
-            
-            if (!question) {
-                showError(t.errorEmpty);
-                return;
-            }
+
+            if (!question) { showError(t.errorEmpty); return; }
 
             document.getElementById('loading').classList.add('active');
             document.getElementById('answers').classList.remove('active');
             document.getElementById('error').classList.remove('active');
             document.getElementById('askBtn').disabled = true;
+            document.getElementById('questionInput').value = '';
 
             try {
+                // Если прикреплён файл — добавляем его к вопросу
+                let fullQuestion = question;
+                if (attachedFileText) {
+                    const maxChars = 3000;
+                    const fileContent = attachedFileText.substring(0, maxChars);
+                    fullQuestion = `${question}\n\n[Файл: ${attachedFileName}]\n${fileContent}${attachedFileText.length > maxChars ? '\n...(обрезано)' : ''}`;
+                }
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        question,
-                        user_id: BRAINT_USER_ID  // Send user ID with request
+                    body: JSON.stringify({
+                        question: fullQuestion,
+                        user_id: BRAINT_USER_ID
                     })
                 });
 
                 if (!response.ok) throw new Error(`HTTP ${response.status}`);
-
                 const data = await response.json();
 
-                document.getElementById('practicalAnswer').textContent = data.practical.text;
-                document.getElementById('deepAnswer').textContent = data.deep.text;
-                document.getElementById('geniusAnswer').textContent = data.genius.text;
+                // Сохраняем для кнопок сохранения
+                lastQuestion = question;
+
+                // Рендерим ответы
+                await renderAnswer('practicalAnswer', data.practical.text);
+                await renderAnswer('deepAnswer', data.deep?.text || '');
+                await renderAnswer('geniusAnswer', data.genius?.text || '');
+
+                addToHistory(question, data);
+                removeFile();
 
                 document.getElementById('loading').classList.remove('active');
                 document.getElementById('answers').classList.add('active');
+                document.getElementById('saveToolbar').classList.add('active');
 
             } catch (error) {
                 console.error('Error:', error);
@@ -583,18 +1051,194 @@
         }
 
         function showError(message) {
-            const errorEl = document.getElementById('error');
-            errorEl.textContent = message;
-            errorEl.classList.add('active');
-            setTimeout(() => errorEl.classList.remove('active'), 5000);
+            const el = document.getElementById('error');
+            el.textContent = message;
+            el.classList.add('active');
+            setTimeout(() => el.classList.remove('active'), 5000);
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeBrain();
-        });
+        // ── СОХРАНЕНИЕ И ШАРИНГ ──────────────────────────────
+        let lastQuestion = '';
+        let lastAnswers = {};
 
-        document.getElementById('brainDialog').addEventListener('click', (e) => {
+        function showToast(msg) {
+            const t = document.getElementById('copyToast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2500);
+        }
+
+        function saveTXT() {
+            const q = lastQuestion;
+            const p = document.getElementById('practicalAnswer').innerText;
+            const d = document.getElementById('deepAnswer').innerText;
+            const g = document.getElementById('geniusAnswer').innerText;
+            const lang = currentLang;
+
+            const content = [
+                '🧠 BrainT — ' + new Date().toLocaleString(),
+                '═'.repeat(50),
+                '',
+                (lang === 'ru' ? '❓ ВОПРОС:' : '❓ QUESTION:'),
+                q,
+                '',
+                '📌 ' + (lang === 'ru' ? 'ПРАКТИЧЕСКИЙ ОТВЕТ:' : 'PRACTICAL ANSWER:'),
+                p,
+                '',
+                '🌌 ' + (lang === 'ru' ? 'ГЛУБИННЫЙ ВЗГЛЯД:' : 'DEEP INSIGHT:'),
+                d,
+                '',
+                '✨ ' + (lang === 'ru' ? 'ГЕНИАЛЬНАЯ ИДЕЯ:' : 'GENIUS IDEA:'),
+                g,
+                '',
+                '═'.repeat(50),
+                'yuriys444.github.io/publicbraint',
+            ].join('\n');
+
+            const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'BrainT_' + Date.now() + '.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast(lang === 'ru' ? '✅ Файл сохранён!' : '✅ File saved!');
+        }
+
+        function copyShareLink() {
+            const q = encodeURIComponent(lastQuestion);
+            const url = window.location.origin + window.location.pathname + '?q=' + q;
+            navigator.clipboard.writeText(url).then(() => {
+                showToast(currentLang === 'ru' ? '🔗 Ссылка скопирована!' : '🔗 Link copied!');
+            }).catch(() => {
+                prompt('Copy this link:', url);
+            });
+        }
+
+        function savePDF() {
+            window.print();
+        }
+
+        // ── ГОЛОСОВОЙ ВВОД ────────────────────────────────────
+        let recognition = null;
+        let isRecording = false;
+
+        function initVoice() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return null;
+            const r = new SpeechRecognition();
+            r.continuous = false;
+            r.interimResults = true;
+            r.lang = currentLang === 'ru' ? 'ru-RU' : 'en-US';
+
+            r.onresult = (e) => {
+                const transcript = Array.from(e.results).map(r => r[0].transcript).join('');
+                document.getElementById('questionInput').value = transcript;
+            };
+
+            r.onend = () => {
+                isRecording = false;
+                const btn = document.getElementById('voiceBtn');
+                btn.classList.remove('recording');
+                document.getElementById('voiceBtnText').textContent = currentLang === 'ru' ? 'Голос' : 'Voice';
+            };
+
+            r.onerror = (e) => {
+                console.warn('Voice error:', e.error);
+                isRecording = false;
+                document.getElementById('voiceBtn').classList.remove('recording');
+            };
+
+            return r;
+        }
+
+        function toggleVoice() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) {
+                alert(currentLang === 'ru'
+                    ? 'Голосовой ввод не поддерживается в вашем браузере. Используйте Chrome.'
+                    : 'Voice input not supported. Please use Chrome.');
+                return;
+            }
+
+            if (isRecording) {
+                recognition && recognition.stop();
+                isRecording = false;
+                document.getElementById('voiceBtn').classList.remove('recording');
+                document.getElementById('voiceBtnText').textContent = currentLang === 'ru' ? 'Голос' : 'Voice';
+            } else {
+                recognition = initVoice();
+                if (!recognition) return;
+                recognition.lang = currentLang === 'ru' ? 'ru-RU' : 'en-US';
+                recognition.start();
+                isRecording = true;
+                document.getElementById('voiceBtn').classList.add('recording');
+                document.getElementById('voiceBtnText').textContent = currentLang === 'ru' ? 'Стоп' : 'Stop';
+            }
+        }
+
+        // ── ФАЙЛЫ ─────────────────────────────────────────────
+        let attachedFileText = '';
+        let attachedFileName = '';
+
+        async function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            attachedFileName = file.name;
+            const ext = file.name.split('.').pop().toLowerCase();
+
+            try {
+                if (ext === 'pdf') {
+                    // PDF — читаем как base64, сервер разберёт
+                    // Для простоты — читаем как текст (работает для text-PDF)
+                    attachedFileText = await readAsText(file);
+                } else {
+                    attachedFileText = await readAsText(file);
+                }
+
+                // Показываем превью
+                document.getElementById('fileName').textContent = file.name + ` (${Math.round(file.size/1024)}KB)`;
+                document.getElementById('filePreview').classList.add('has-file');
+
+                // Вставляем подсказку в поле ввода
+                const input = document.getElementById('questionInput');
+                if (!input.value) {
+                    input.placeholder = currentLang === 'ru'
+                        ? `Файл прикреплён: ${file.name}\nЗадайте вопрос по содержимому...`
+                        : `File attached: ${file.name}\nAsk a question about its content...`;
+                }
+            } catch(e) {
+                console.error('File read error:', e);
+            }
+
+            // Сбрасываем input чтобы можно было выбрать тот же файл повторно
+            event.target.value = '';
+        }
+
+        function readAsText(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.onerror = reject;
+                reader.readAsText(file, 'UTF-8');
+            });
+        }
+
+        function removeFile() {
+            attachedFileText = '';
+            attachedFileName = '';
+            document.getElementById('filePreview').classList.remove('has-file');
+            document.getElementById('questionInput').placeholder = translations[currentLang].placeholder;
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeBrain(); });
+        document.getElementById('brainDialog').addEventListener('click', e => {
             if (e.target.id === 'brainDialog') closeBrain();
+        });
+        // Ctrl+Enter для отправки
+        document.getElementById('questionInput').addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') askBrain();
         });
     </script>
 </body>
